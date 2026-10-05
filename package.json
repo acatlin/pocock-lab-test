@@ -1,0 +1,15 @@
+{
+  "name": "pocock-end-to-end-js",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Template repo for the agentic SDLC lab (JavaScript edition): a static site with tested ES modules.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test",
+    "start": "node scripts/serve.js"
+  },
+  "license": "MIT"
+}

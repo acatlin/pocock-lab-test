@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rides dashboard</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header>
+    <h1>Rides dashboard</h1>
+    <nav><a href="./index.html">Home</a></nav>
+  </header>
+  <main>
+    <p>Starting point for the agentic SDLC lab. Daily ride counts for three cities, July to September 2026, loaded from <code>data/rides.csv</code>.</p>
+    <p id="total" aria-live="polite">Loading data&hellip;</p>
+    <section>
+      <h2>Rides by city</h2>
+      <table id="by-city">
+        <thead><tr><th>City</th><th>Rides</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div id="chart" class="bars" role="img" aria-label="Bar chart of rides by city"></div>
+    </section>
+  </main>
+  <script type="module">
+    import { parseCsv } from "./src/csv.js";
+    import { totalRides, ridesByCity } from "./src/stats.js";
+
+    const response = await fetch("./data/rides.csv");
+    const rows = parseCsv(await response.text());
+    const byCity = ridesByCity(rows);
+
+    document.getElementById("total").textContent =
+      `Total rides: ${totalRides(rows).toLocaleString()}`;
+
+    const tbody = document.querySelector("#by-city tbody");
+    const chart = document.getElementById("chart");
+    const max = Math.max(...byCity.map((d) => d.rides));
+    for (const { city, rides } of byCity) {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>${city}</td><td>${rides.toLocaleString()}</td>`;
+      tbody.appendChild(tr);
+
+      const bar = document.createElement("div");
+      bar.className = "bar";
+      bar.style.width = `${(rides / max) * 100}%`;
+      bar.textContent = `${city} ${rides.toLocaleString()}`;
+      chart.appendChild(bar);
+    }
+  </script>
+</body>
+</html>
