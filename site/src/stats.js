@@ -14,3 +14,19 @@ export function ridesByCity(rows) {
     .map(([city, rides]) => ({ city, rides }))
     .sort((a, b) => a.city.localeCompare(b.city));
 }
+
+// Each city's busiest days: the dates on which its ride count is highest.
+export function busiestDaysByCity(rows) {
+  const busiest = new Map();
+  for (const row of rows) {
+    const rides = Number(row.rides);
+    const current = busiest.get(row.city);
+    if (!current || rides > current.rides) {
+      busiest.set(row.city, { city: row.city, dates: [row.date], rides });
+    } else if (rides === current.rides) {
+      current.dates.push(row.date);
+    }
+  }
+  for (const entry of busiest.values()) entry.dates.sort();
+  return [...busiest.values()].sort((a, b) => a.city.localeCompare(b.city));
+}

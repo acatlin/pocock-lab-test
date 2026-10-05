@@ -24,7 +24,7 @@ GitHub CLI, signed in (`gh auth status`). Then, in order:
 
 ```bash
 node -v        # v20 or higher
-npm test       # expected: a summary line ending in "pass 3"
+npm test       # expected: a summary line ending in "pass 8"
 npm start      # serves site/ at http://localhost:8080 (Ctrl+C to stop)
 ```
 
