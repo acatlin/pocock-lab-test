@@ -22,10 +22,17 @@
       </table>
       <div id="chart" class="bars" role="img" aria-label="Bar chart of rides by city"></div>
     </section>
+    <section>
+      <h2>Busiest day by city</h2>
+      <table id="busiest-days">
+        <thead><tr><th>City</th><th>Busiest day</th><th>Rides</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
   </main>
   <script type="module">
     import { parseCsv } from "./src/csv.js";
-    import { totalRides, ridesByCity } from "./src/stats.js";
+    import { totalRides, ridesByCity, busiestDaysByCity } from "./src/stats.js";
 
     const response = await fetch("./data/rides.csv");
     const rows = parseCsv(await response.text());
@@ -47,6 +54,13 @@
       bar.style.width = `${(rides / max) * 100}%`;
       bar.textContent = `${city} ${rides.toLocaleString()}`;
       chart.appendChild(bar);
+    }
+
+    const busiestTbody = document.querySelector("#busiest-days tbody");
+    for (const { city, dates, rides } of busiestDaysByCity(rows)) {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td>${city}</td><td>${dates.join("<br>")}</td><td>${rides.toLocaleString()}</td>`;
+      busiestTbody.appendChild(tr);
     }
   </script>
 </body>
