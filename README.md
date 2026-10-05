@@ -24,7 +24,7 @@ GitHub CLI, signed in (`gh auth status`). Then, in order:
 
 ```bash
 node -v        # v20 or higher
-npm test       # expected: a summary line ending in "pass 8"
+npm test       # expected: a summary line ending in "pass 10"
 npm start      # serves site/ at http://localhost:8080 (Ctrl+C to stop)
 ```
 
@@ -33,7 +33,7 @@ npm start      # serves site/ at http://localhost:8080 (Ctrl+C to stop)
 | Path | What it is |
 |---|---|
 | `site/index.html`, `site/style.css` | The pages. Paths are relative so the site works under a GitHub Pages subpath. |
-| `site/src/csv.js`, `site/src/stats.js` | ES modules used by the pages and by the tests. Computation lives here. |
+| `site/src/csv.js`, `site/src/stats.js`, `site/src/dates.js` | ES modules used by the pages and by the tests. Computation lives here. |
 | `site/data/rides.csv` | Sample data: daily ride counts for three cities, July-September 2026. |
 | `tests/*.test.js` | Tests, run by Node's built-in test runner. |
 | `scripts/serve.js` | Zero-dependency local static server. |

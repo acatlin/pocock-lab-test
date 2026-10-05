@@ -33,6 +33,7 @@
   <script type="module">
     import { parseCsv } from "./src/csv.js";
     import { totalRides, ridesByCity, busiestDaysByCity } from "./src/stats.js";
+    import { formatDay } from "./src/dates.js";
 
     const response = await fetch("./data/rides.csv");
     const rows = parseCsv(await response.text());
@@ -59,7 +60,7 @@
     const busiestTbody = document.querySelector("#busiest-days tbody");
     for (const { city, dates, rides } of busiestDaysByCity(rows)) {
       const tr = document.createElement("tr");
-      tr.innerHTML = `<td>${city}</td><td>${dates.join("<br>")}</td><td>${rides.toLocaleString()}</td>`;
+      tr.innerHTML = `<td>${city}</td><td>${dates.map(formatDay).join("<br>")}</td><td>${rides.toLocaleString()}</td>`;
       busiestTbody.appendChild(tr);
     }
   </script>
