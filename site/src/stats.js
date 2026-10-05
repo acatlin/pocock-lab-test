@@ -20,14 +20,13 @@ export function busiestDaysByCity(rows) {
   const busiest = new Map();
   for (const row of rows) {
     const rides = Number(row.rides);
-    const best = busiest.get(row.city);
-    if (!best || rides > best.rides) {
+    const current = busiest.get(row.city);
+    if (!current || rides > current.rides) {
       busiest.set(row.city, { city: row.city, dates: [row.date], rides });
-    } else if (rides === best.rides) {
-      best.dates.push(row.date);
+    } else if (rides === current.rides) {
+      current.dates.push(row.date);
     }
   }
-  return [...busiest.values()]
-    .map((entry) => ({ ...entry, dates: entry.dates.sort() }))
-    .sort((a, b) => a.city.localeCompare(b.city));
+  for (const entry of busiest.values()) entry.dates.sort();
+  return [...busiest.values()].sort((a, b) => a.city.localeCompare(b.city));
 }
