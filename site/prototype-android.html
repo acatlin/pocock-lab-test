@@ -1,0 +1,43 @@
+<!doctype html>
+<!--
+  PROTOTYPE - throwaway code, not production. Do not merge to main (main deploys site/ to Pages).
+
+  Question: what should the Rides dashboard look like as an Android app once the UI
+  enhancements in issues #7, #14, #15, #16 and #17 are in?
+
+  Plan: three structurally different variants on this one page, switchable via ?variant=A|B|C
+  and the floating bar at the bottom. All three read the real site/data/rides.csv through the
+  real site/src modules; only the rendering differs.
+
+  Assumption: "Android-based" means the app as it would look on an Android phone (Material 3
+  styling in a phone frame), built with the repo's own stack. No Android SDK is installed here.
+
+  Run: npm start, then open http://localhost:8080/prototype-android.html
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PROTOTYPE: Rides on Android</title>
+  <link rel="stylesheet" href="./prototype-android/proto.css">
+</head>
+<body>
+  <div class="stage">
+    <div class="phone">
+      <div class="statusbar" aria-hidden="true">
+        <span>9:30</span>
+        <span class="statusbar-icons"><i class="sb-signal"></i><i class="sb-wifi"></i><i class="sb-battery"></i></span>
+      </div>
+      <div id="screen" class="screen"></div>
+      <div class="gesture" aria-hidden="true"><span></span></div>
+    </div>
+    <aside class="notes">
+      <h1>Prototype: Rides on Android</h1>
+      <p>Throwaway. Three layouts of the same dashboard with the UI enhancements from issues #7, #14, #15, #16 and #17. Use the bar at the bottom, or the left and right arrow keys, to switch.</p>
+      <h2>Current state</h2>
+      <pre id="state"></pre>
+    </aside>
+  </div>
+  <script type="module" src="./prototype-android/main.js"></script>
+</body>
+</html>
